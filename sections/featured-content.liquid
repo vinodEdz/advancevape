@@ -1,0 +1,199 @@
+{% for block in section.blocks %}
+	<div {{ block.shopify_attributes }}>
+	{% case block.type %}
+
+		{% when "text" %}
+
+		
+		  {% if block.settings.title != blank %}
+			<div class="section-header">
+              
+              
+			  <p class="h1">{{ block.settings.title | escape }}</p>
+			</div>
+		  {% endif %}
+			
+				{{ block.settings.content }}
+      <!-- featured-content.liquid  -->
+<!--       <ul class="shipping-img">
+        <li>
+          <img src="//cdn.shopify.com/s/files/1/2213/3847/files/Group.jpg">
+        </li>
+        
+        
+      </ul> -->
+              
+               <ul class="shipping-block"> 
+                 <li> 
+                   <span> <img src="https://cdn.shopify.com/s/files/1/2213/3847/files/logistics-delivery-truck-in-movement_1.png"></span>
+                    <span>
+                      <h6>   FREE  SHIPPING  </h6>
+                      <p>  Free Express Shipping on Orders Above $100  </p>
+                      <a href="#"> Details ></a>
+                   </span> 
+                   
+                 </li>
+                 <li>
+                  <span> <img src="https://cdn.shopify.com/s/files/1/2213/3847/files/logistics-delivery-truck-in-movement_1.png"></span>
+                    <span>
+                      <h6> Low Price Guarantee  </h6>
+                      <p> Best Price Across All Product Range </p>
+                      <a href="#"> Details ></a>
+                   </span>   
+                 </li>
+                 <li>
+                  <span> <img src="https://cdn.shopify.com/s/files/1/2213/3847/files/logistics-delivery-truck-in-movement_1.png"></span>
+                    <span>
+                      <h6> Huge Range </h6>
+                      <p> Huge Range to select from Starter Kits to Advance Mods </p>
+                      <a href="#"> Details ></a>
+                   </span>  
+                 </li>
+                  <li>
+                  <span> <img src="https://cdn.shopify.com/s/files/1/2213/3847/files/logistics-delivery-truck-in-movement_1.png"></span>
+                    <span>
+                      <h6> No Clone Zone  </h6>
+                      <p> Check out our huge selection of Authentic Products </p>
+                      <a href="#"> Details ></a>
+                   </span>   
+                 </li>
+                 
+                 
+                 <div style="clear:both;"></div>
+</ul> 
+              
+              
+              
+            <style>
+                .shipping-block{padding:10px 0px;background:#000;display:block;}
+                .shipping-block li{width:25%;float:left;padding:10px 15px;border-right:1px solid #696969;padding: 10px 15px;margin: 0px;height:82px;}
+                .shipping-block li:nth-child(4){border:none;}
+                .shipping-block li span{float:left;}
+                .shipping-block li span:nth-child(1){margin-right:15px;}
+                .shipping-block li span h6{font-size:12px;line-height:12px;color:#FF161D;font-weight:600;}
+                .shipping-block li span p{font-size:10px;line-height:14px;color:#fff;margin-bottom:0px;}
+                .shipping-block li span a{font-size:10px;line-height:10px;color:#fff;}
+                .shipping-block li span:nth-child(2):after{clear:both;}
+                .shipping-block li span:nth-child(1){width:15%;}
+                .shipping-block li span:nth-child(2){width:75%;}
+              .shipping-block li span a{text-decoration:underline;}
+              .section-header a{color:#333333;}
+              
+              @media(max-width:1024px){
+                .shipping-block li{height:95px;padding:10px;}
+                .site-nav a{padding:15px 20px;}
+              }
+              
+              @media(max-width:768px){
+                .shipping-block li span:nth-child(1),.shipping-block li span:nth-child(2){width:100%;text-align:center;padding:0px 10px;}
+              	.shipping-block li{height:135px;padding:10px 0px;}
+              }
+              
+              @media(max-width:767px){
+              .shipping-block li{height:155px;padding:10px 0px;}
+                
+              
+              }
+              
+              @media(max-width:480px){
+                .shipping-block li{width:50%;height:140px;}
+                .shipping-block li span:nth-child(1), .shipping-block li span:nth-child(2){
+                padding:0px 5px;
+                }
+                .shipping-block li:nth-child(2),.shipping-block li:nth-child(4){border-right:0px;}
+                .shipping-block li:nth-child(5){width:100%;}
+              
+              }
+              
+              
+              
+                
+              </style>
+               
+		
+
+		{% when "page" %}
+			<hr>
+			{% if block.settings.page == blank or pages[block.settings.page] == empty %}
+
+				{% if block.settings.show_heading %}
+					<div class="section-header">
+					  <p class="h1">{{ block.title }}</p>
+					</div>
+				{% endif %}
+
+				<p>{{ 'homepage.onboarding.no_content' | t }}</p>
+
+			{% else %}
+
+			  {% assign page = pages[block.settings.page] %}
+
+				{% if block.settings.show_heading %}
+					<div class="section-header">
+					  <p class="h1">{{ page.title }}</p>
+					</div>
+				{% endif %}
+
+				  <div class="rte">
+				   {{ page.content }}
+				  </div>
+
+			{% endif %}
+	{% endcase %}
+	</div>
+{% endfor %}
+
+{% schema %}
+	{
+	  "name": "Rich text",
+	  "class": "featured-content-section",
+	  "blocks": [
+      {
+        "type": "text",
+        "name": "Text",
+        "settings": [
+          {
+            "type": "text",
+            "id": "title",
+            "label": "Heading",
+            "default": "Talk about your brand"
+          },
+          {
+            "type": "richtext",
+	          "id": "content",
+	          "label": "Text",
+	          "default": "<p>Use this text to share information about your brand with your customers. Describe a product, share announcements, or welcome customers to your store.</p>"
+	        }
+	      ]
+      },
+	    {
+	      "type": "page",
+	      "name": "Page",
+	      "settings": [
+	        {
+		        "type": "checkbox",
+		        "id": "show_heading",
+		        "label": "Show heading",
+		        "default": true
+		      },
+		      {
+		        "type": "page",
+		        "id": "page",
+		        "label": "Page"
+		      }
+		    ]
+	    }
+    ],
+    "presets": [
+      {
+        "name": "Rich text",
+        "category": "Text",
+        "blocks": [
+          {
+            "type": "text"
+          }
+        ]
+      }
+    ]
+  }
+{% endschema %}
